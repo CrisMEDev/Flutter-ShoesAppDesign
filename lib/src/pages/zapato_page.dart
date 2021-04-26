@@ -7,9 +7,15 @@ class ZapatoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: CustomAppbar(
-          texto: 'For you',
-        ),
+        body: Column(
+          children: [
+            CustomAppbar(
+              texto: 'For you',
+            ),
+            SizedBox( height: 20.0, ),
+            ZapatoSizePreview(),
+          ],
+        )
       ),
     );
   }
