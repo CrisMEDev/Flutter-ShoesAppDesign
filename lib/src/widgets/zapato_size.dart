@@ -23,6 +23,9 @@ class ZapatoSizePreview extends StatelessWidget {
             // Zapato con sombra
             _ZapatoSombreado(),
 
+            // Talla del zapato
+            _ZapatoTalla()
+
           ],
         ),
 
@@ -78,6 +81,81 @@ class _SombraZapato extends StatelessWidget {
           ]
 
         ),
+      ),
+    );
+  }
+}
+
+class _ZapatoTalla extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+
+    final screenSize = MediaQuery.of(context).size;
+
+    return Container(
+      width: screenSize.width * 0.55,
+      child: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            _CuadroTalla( tallaZapato: 23.5, ),
+            _CuadroTalla( tallaZapato: 24, ),
+            _CuadroTalla( tallaZapato: 25, ),
+            _CuadroTalla( tallaZapato: 26, ),
+            _CuadroTalla( tallaZapato: 27.5, ),
+            _CuadroTalla( tallaZapato: 28, ),
+          ],
+        ),
+      ),
+
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey[200],
+            blurRadius: 15
+          )
+        ]
+      ),
+    );
+  }
+}
+
+class _CuadroTalla extends StatelessWidget {
+
+  final double tallaZapato;
+
+  const _CuadroTalla({
+    @required this.tallaZapato
+  });
+
+  @override
+  Widget build(BuildContext context) {
+
+    final screenSize = MediaQuery.of(context).size;
+
+    return Container(
+      margin: EdgeInsets.only( right: 10.0 ),
+      width: (screenSize.width * 0.12),
+      height: (screenSize.width * 0.12),
+
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10.0)
+        // TODO: BoxShadow par ael seleccionado
+      ),
+
+      child: Center(
+        child: Text(
+          ( tallaZapato * 10 % 10 == 0 ) ? tallaZapato.toInt().toString() : tallaZapato.toString(),
+          style: TextStyle(
+            color: Color(0xFFEB5352),
+            letterSpacing: 2,
+            fontWeight: FontWeight.w900,
+
+          ),
+        )
       ),
     );
   }
