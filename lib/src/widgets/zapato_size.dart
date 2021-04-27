@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'package:shoesapp/src/models/zapato_model.dart';
 import 'package:shoesapp/src/pages/zapato_desc_page.dart';
 
 class ZapatoSizePreview extends StatelessWidget {
@@ -159,10 +162,11 @@ class _CuadroTalla extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final screenSize = MediaQuery.of(context).size;
+    final zapatoModel = Provider.of<ZapatoModel>(context);
 
     return GestureDetector(
       onTap: (){ // Aqui provider actualiza la talla seleccionada
-
+        zapatoModel.tallaSeleccionada = tallaZapato;
       },
       child: Container(
         margin: EdgeInsets.only( right: 10.0 ),
@@ -170,9 +174,9 @@ class _CuadroTalla extends StatelessWidget {
         height: (screenSize.width * 0.12),
 
         decoration: BoxDecoration(
-          color:  tallaZapato == 23.5 ? Color(0xFFF24459) : Colors.white,
+          color:  tallaZapato == zapatoModel.tallaSeleccionada ? Color(0xFFF24459) : Colors.white,
           borderRadius: BorderRadius.circular(10.0),
-          boxShadow: tallaZapato == 23.5 
+          boxShadow: tallaZapato == zapatoModel.tallaSeleccionada 
           ? [
             BoxShadow(
               blurRadius: 20.0,
@@ -187,7 +191,7 @@ class _CuadroTalla extends StatelessWidget {
           child: Text(
             '$tallaZapato'.replaceAll('.0', ''),
             style: TextStyle(
-              color:  tallaZapato == 23.5 ? Colors.white : Color(0xFFEB5352),
+              color:  tallaZapato == zapatoModel.tallaSeleccionada ? Colors.white : Color(0xFFEB5352),
               letterSpacing: 2,
               fontWeight: FontWeight.w900,
 
