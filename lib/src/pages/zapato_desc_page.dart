@@ -5,12 +5,33 @@ import 'package:shoesapp/src/widgets/custom_widgets.dart';
 class ZapatoDescripcionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
+    final screenSize = MediaQuery.of(context).size;
+
     return SafeArea(
       child: Scaffold(
         body: Column(
           children: [
-            ZapatoSizePreview(
-              fullScreen: true,
+            Stack(
+              children: [
+                ZapatoSizePreview(
+                  fullScreen: true,
+                ),
+                Positioned(
+                  top: screenSize.height * 0.05,
+                  left: screenSize.width * 0.05,
+                  child: FloatingActionButton(
+                    backgroundColor: Colors.transparent,
+                    elevation: 0.0,
+                    highlightElevation: 0.0,
+                    splashColor: Colors.white,                    // Efecto que se ve al tocar el boton
+                    child: Icon(Icons.chevron_left, size: 60.0,),
+                    onPressed: (){
+                      
+                    },
+                  ),
+                )
+              ],
             ),
 
             Expanded(
@@ -24,6 +45,8 @@ class ZapatoDescripcionPage extends StatelessWidget {
                     _MontoBuyNow(),
 
                     _ColoresYMas(),
+
+                    _BotonesLikeCartSettings(),
                   ],
                 ),
               ),
@@ -31,6 +54,74 @@ class ZapatoDescripcionPage extends StatelessWidget {
           ],
         )
       ),
+    );
+  }
+}
+
+class _BotonesLikeCartSettings extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+
+    final screenSize = MediaQuery.of(context).size;
+
+    return Container(
+      margin: EdgeInsets.symmetric( vertical: 30.0 ),
+      padding: EdgeInsets.symmetric( horizontal: screenSize.width * 0.1 ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          _BotonSombreado(
+            icon: Icon(
+              Icons.favorite,
+              color: Colors.red[700],
+              size: ( screenSize.width < screenSize.height ) ? screenSize.width * 0.08 : screenSize.height * 0.08 ),
+          ),
+          _BotonSombreado(
+            icon: Icon(
+              Icons.add_shopping_cart,
+              color: Colors.grey.withOpacity(0.4),
+              size: ( screenSize.width < screenSize.height ) ? screenSize.width * 0.08 : screenSize.height * 0.08 ),
+          ),
+          _BotonSombreado(
+            icon: Icon(
+              Icons.settings,
+              color: Colors.grey.withOpacity(0.7),
+              size: ( screenSize.width < screenSize.height ) ? screenSize.width * 0.08 : screenSize.height * 0.08 ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _BotonSombreado extends StatelessWidget {
+
+  final Icon icon;
+
+  const _BotonSombreado({
+    @required this.icon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 45,
+      height: 45,
+      decoration: BoxDecoration(
+        // color: Colors.blueGrey[100],
+        shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12,
+            spreadRadius: -5,
+            blurRadius: 20,
+            offset: Offset(0.0, 3.0)
+          )
+        ]
+      ),
+
+      child: this.icon,
     );
   }
 }
@@ -43,7 +134,7 @@ class _ColoresYMas extends StatelessWidget {
     final screenSize = MediaQuery.of(context).size;
 
     return Padding(
-      padding: EdgeInsets.symmetric( horizontal: screenSize.width * 0.1 ),
+      padding: EdgeInsets.symmetric( horizontal: screenSize.width * 0.1, ),
       child: Row(
         children: [
           
