@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:provider/provider.dart';
 
+import 'package:shoesapp/src/models/zapato_model.dart';
 import 'package:shoesapp/src/widgets/custom_widgets.dart';
+
 
 class ZapatoDescripcionPage extends StatelessWidget {
   @override
@@ -147,17 +150,17 @@ class _ColoresYMas extends StatelessWidget {
               children: [
                 Positioned(
                   left: 90.0,
-                  child: _CirculoIndicadorColor( color: Color(0xFFC6D642), index: 4 ),
+                  child: _CirculoIndicadorColor( color: Color(0xFFC6D642), index: 4, assetImg: 'assets/verde.png' ),
                 ),
                 Positioned(
                   left: 60.0,
-                  child: _CirculoIndicadorColor( color: Color(0xFFFFAD29), index: 3 ),
+                  child: _CirculoIndicadorColor( color: Color(0xFFFFAD29), index: 3, assetImg: 'assets/amarillo.png' ),
                 ),
                 Positioned(
                   left: 30.0,
-                  child: _CirculoIndicadorColor( color: Color(0xFF2099F1), index: 2 ),
+                  child: _CirculoIndicadorColor( color: Color(0xFF2099F1), index: 2, assetImg: 'assets/azul.png' ),
                 ),
-                _CirculoIndicadorColor( color: Color(0xFF364D56), index: 1 ),
+                _CirculoIndicadorColor( color: Color(0xFF364D56), index: 1, assetImg: 'assets/negro.png' ),
               ],
             ),
           ),
@@ -178,26 +181,34 @@ class _CirculoIndicadorColor extends StatelessWidget {
 
   final Color color;
   final int index;
+  final String assetImg;
 
   const _CirculoIndicadorColor({
     this.color = Colors.blue,
-    this.index
+    this.index,
+    this.assetImg
   });
 
   @override
   Widget build(BuildContext context) {
 
     final screenSize = MediaQuery.of(context).size;
+    final zapatoModel = Provider.of<ZapatoModel>(context);
 
     return FadeInLeft(
       delay: Duration( milliseconds: this.index * 100 ),
       duration: Duration( milliseconds: 300 ),
-      child: Container(
-        width: (screenSize.width < screenSize.height) ? screenSize.width * 0.12 : screenSize.height * 0.12,
-        height: (screenSize.width < screenSize.height) ? screenSize.width * 0.12 : screenSize.height * 0.12,
-        decoration: BoxDecoration(
-          color: this.color,
-          shape: BoxShape.circle
+      child: GestureDetector(
+        onTap: (){
+          zapatoModel.assetImageSelected = this.assetImg;
+        },
+        child: Container(
+          width: (screenSize.width < screenSize.height) ? screenSize.width * 0.12 : screenSize.height * 0.12,
+          height: (screenSize.width < screenSize.height) ? screenSize.width * 0.12 : screenSize.height * 0.12,
+          decoration: BoxDecoration(
+            color: this.color,
+            shape: BoxShape.circle
+          ),
         ),
       ),
     );

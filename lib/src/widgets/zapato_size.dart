@@ -67,6 +67,7 @@ class _ZapatoSombreado extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final screenSize = MediaQuery.of(context).size;
+    final zapatoModel = Provider.of<ZapatoModel>(context);
 
     return Padding(
       padding: EdgeInsets.all( (screenSize.height * 0.50) * 0.1 ),
@@ -79,7 +80,7 @@ class _ZapatoSombreado extends StatelessWidget {
             child: _SombraZapato()
           ),
 
-          Image(image: AssetImage('assets/azul.png'), width: screenSize.width * 0.70,),
+          Image(image: AssetImage(zapatoModel.assetImageSelected), width: screenSize.width * 0.70,),
         ],
       ),
     );
