@@ -1,20 +1,37 @@
 import 'package:flutter/material.dart';
 
 class ZapatoSizePreview extends StatelessWidget {
+
+  final bool fullScreen;
+
+  ZapatoSizePreview({
+    this.fullScreen = false,
+  });
+
   @override
   Widget build(BuildContext context) {
 
     final screenSize = MediaQuery.of(context).size;
 
     return Padding(
-      padding: EdgeInsets.symmetric( horizontal: screenSize.width * 0.1, vertical: 5.0 ),
+      padding: EdgeInsets.symmetric( 
+        horizontal: this.fullScreen ? 5.0 : screenSize.width * 0.1,
+        vertical: this.fullScreen ? 5.0 : 0.0
+      ),
       child: Container(
         width: screenSize.width,
         height: screenSize.height * 0.45,
 
         decoration: BoxDecoration(
           color: Color(0xFFEB5352),
-          borderRadius: BorderRadius.circular(50.0),
+          borderRadius: this.fullScreen 
+                        ? BorderRadius.only(
+                          bottomLeft: Radius.circular(50.0),
+                          bottomRight: Radius.circular(50.0),
+                          topLeft: Radius.circular(40.0),
+                          topRight: Radius.circular(40.0)
+                        )
+                        : BorderRadius.circular(50.0),
         ),
 
         child: Column(
@@ -24,7 +41,7 @@ class ZapatoSizePreview extends StatelessWidget {
             _ZapatoSombreado(),
 
             // Talla del zapato
-            _ZapatoTalla()
+            if ( !this.fullScreen ) _ZapatoTalla(),
 
           ],
         ),
@@ -41,17 +58,17 @@ class _ZapatoSombreado extends StatelessWidget {
     final screenSize = MediaQuery.of(context).size;
 
     return Padding(
-      padding: EdgeInsets.all( (screenSize.height * 0.45) * 0.1 ),
+      padding: EdgeInsets.all( (screenSize.height * 0.55) * 0.1 ),
       child: Stack(
         children: [
           Positioned(
-            bottom: 20.0,
+            bottom: 40.0,
             right: 0.0,
             left: 40.0,
             child: _SombraZapato()
           ),
 
-          Image(image: AssetImage('assets/azul.png')),
+          Image(image: AssetImage('assets/azul.png'), width: screenSize.width * 0.70,),
         ],
       ),
     );
