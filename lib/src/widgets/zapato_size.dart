@@ -135,27 +135,40 @@ class _CuadroTalla extends StatelessWidget {
 
     final screenSize = MediaQuery.of(context).size;
 
-    return Container(
-      margin: EdgeInsets.only( right: 10.0 ),
-      width: (screenSize.width * 0.12),
-      height: (screenSize.width * 0.12),
+    return GestureDetector(
+      onTap: (){ // Aqui provider actualiza la talla seleccionada
 
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10.0)
-        // TODO: BoxShadow par ael seleccionado
-      ),
+      },
+      child: Container(
+        margin: EdgeInsets.only( right: 10.0 ),
+        width: (screenSize.width * 0.12),
+        height: (screenSize.width * 0.12),
 
-      child: Center(
-        child: Text(
-          ( tallaZapato * 10 % 10 == 0 ) ? tallaZapato.toInt().toString() : tallaZapato.toString(),
-          style: TextStyle(
-            color: Color(0xFFEB5352),
-            letterSpacing: 2,
-            fontWeight: FontWeight.w900,
+        decoration: BoxDecoration(
+          color:  tallaZapato == 23.5 ? Color(0xFFF24459) : Colors.white,
+          borderRadius: BorderRadius.circular(10.0),
+          boxShadow: tallaZapato == 23.5 
+          ? [
+            BoxShadow(
+              blurRadius: 20.0,
+              color: Color(0xFFF24459),
+              offset: Offset(0.0, 10.0)
+            )
+          ]
+          : []
+        ),
 
-          ),
-        )
+        child: Center(
+          child: Text(
+            ( tallaZapato * 10 % 10 == 0 ) ? tallaZapato.toInt().toString() : tallaZapato.toString(),
+            style: TextStyle(
+              color:  tallaZapato == 23.5 ? Colors.white : Color(0xFFEB5352),
+              letterSpacing: 2,
+              fontWeight: FontWeight.w900,
+
+            ),
+          )
+        ),
       ),
     );
   }
