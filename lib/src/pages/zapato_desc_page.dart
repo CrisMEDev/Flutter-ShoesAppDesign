@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:animate_do/animate_do.dart';
 
 import 'package:shoesapp/src/widgets/custom_widgets.dart';
 
@@ -14,8 +15,11 @@ class ZapatoDescripcionPage extends StatelessWidget {
           children: [
             Stack(
               children: [
-                ZapatoSizePreview(
-                  fullScreen: true,
+                Hero(
+                  tag: 'zapato-1',
+                  child: ZapatoSizePreview(
+                    fullScreen: true,
+                  ),
                 ),
                 Positioned(
                   top: screenSize.height * 0.05,
@@ -27,7 +31,7 @@ class ZapatoDescripcionPage extends StatelessWidget {
                     splashColor: Colors.white,                    // Efecto que se ve al tocar el boton
                     child: Icon(Icons.chevron_left, size: 60.0,),
                     onPressed: (){
-                      
+                      Navigator.pop(context);
                     },
                   ),
                 )
@@ -143,17 +147,17 @@ class _ColoresYMas extends StatelessWidget {
               children: [
                 Positioned(
                   left: 90.0,
-                  child: _CirculoIndicadorColor( color: Color(0xFFC6D642), ),
+                  child: _CirculoIndicadorColor( color: Color(0xFFC6D642), index: 4 ),
                 ),
                 Positioned(
                   left: 60.0,
-                  child: _CirculoIndicadorColor( color: Color(0xFFFFAD29), ),
+                  child: _CirculoIndicadorColor( color: Color(0xFFFFAD29), index: 3 ),
                 ),
                 Positioned(
                   left: 30.0,
-                  child: _CirculoIndicadorColor( color: Color(0xFF2099F1), ),
+                  child: _CirculoIndicadorColor( color: Color(0xFF2099F1), index: 2 ),
                 ),
-                _CirculoIndicadorColor( color: Color(0xFF364D56), ),
+                _CirculoIndicadorColor( color: Color(0xFF364D56), index: 1 ),
               ],
             ),
           ),
@@ -173,9 +177,11 @@ class _ColoresYMas extends StatelessWidget {
 class _CirculoIndicadorColor extends StatelessWidget {
 
   final Color color;
+  final int index;
 
   const _CirculoIndicadorColor({
     this.color = Colors.blue,
+    this.index
   });
 
   @override
@@ -183,12 +189,16 @@ class _CirculoIndicadorColor extends StatelessWidget {
 
     final screenSize = MediaQuery.of(context).size;
 
-    return Container(
-      width: (screenSize.width < screenSize.height) ? screenSize.width * 0.12 : screenSize.height * 0.12,
-      height: (screenSize.width < screenSize.height) ? screenSize.width * 0.12 : screenSize.height * 0.12,
-      decoration: BoxDecoration(
-        color: this.color,
-        shape: BoxShape.circle
+    return FadeInLeft(
+      delay: Duration( milliseconds: this.index * 100 ),
+      duration: Duration( milliseconds: 300 ),
+      child: Container(
+        width: (screenSize.width < screenSize.height) ? screenSize.width * 0.12 : screenSize.height * 0.12,
+        height: (screenSize.width < screenSize.height) ? screenSize.width * 0.12 : screenSize.height * 0.12,
+        decoration: BoxDecoration(
+          color: this.color,
+          shape: BoxShape.circle
+        ),
       ),
     );
   }
@@ -209,7 +219,11 @@ class _MontoBuyNow extends StatelessWidget {
           children: [
             Text('180.0', style: TextStyle( fontSize: 28.0, fontWeight: FontWeight.bold ),),
             Spacer(),
-            BotonPedir( text: 'Buy now', botonAncho: screenSize.width * 0.25, botonAlto: screenSize.height * 0.05, )
+            Bounce(
+              delay: Duration( seconds: 1 ),
+              from: 10,
+              child: BotonPedir( text: 'Buy now', botonAncho: screenSize.width * 0.25, botonAlto: screenSize.height * 0.05, )
+            )
           ],
         ),
       ),

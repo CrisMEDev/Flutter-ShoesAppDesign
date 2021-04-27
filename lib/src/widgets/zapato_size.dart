@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shoesapp/src/pages/zapato_desc_page.dart';
 
 class ZapatoSizePreview extends StatelessWidget {
 
@@ -13,39 +14,46 @@ class ZapatoSizePreview extends StatelessWidget {
 
     final screenSize = MediaQuery.of(context).size;
 
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: this.fullScreen ? 5.0 : screenSize.width * 0.1,
-        vertical: this.fullScreen ? 5.0 : 0.0
-      ),
-      child: Container(
-        width: screenSize.width,
-        height: screenSize.height * 0.45,
-
-        decoration: BoxDecoration(
-          color: Color(0xFFEB5352),
-          borderRadius: this.fullScreen 
-                        ? BorderRadius.only(
-                          bottomLeft: Radius.circular(50.0),
-                          bottomRight: Radius.circular(50.0),
-                          topLeft: Radius.circular(40.0),
-                          topRight: Radius.circular(40.0)
-                        )
-                        : BorderRadius.circular(50.0),
+    return GestureDetector(
+      onTap: (){
+        if (!this.fullScreen){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => ZapatoDescripcionPage()));
+        }
+      },
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: this.fullScreen ? 5.0 : screenSize.width * 0.1,
+          vertical: this.fullScreen ? 5.0 : 0.0
         ),
+        child: Container(
+          width: screenSize.width,
+          height: screenSize.height * 0.45,
 
-        child: Column(
-          children: [
+          decoration: BoxDecoration(
+            color: Color(0xFFEB5352),
+            borderRadius: this.fullScreen 
+                          ? BorderRadius.only(
+                            bottomLeft: Radius.circular(50.0),
+                            bottomRight: Radius.circular(50.0),
+                            topLeft: Radius.circular(40.0),
+                            topRight: Radius.circular(40.0)
+                          )
+                          : BorderRadius.circular(50.0),
+          ),
 
-            // Zapato con sombra
-            _ZapatoSombreado(),
+          child: Column(
+            children: [
 
-            // Talla del zapato
-            if ( !this.fullScreen ) _ZapatoTalla(),
+              // Zapato con sombra
+              _ZapatoSombreado(),
 
-          ],
+              // Talla del zapato
+              if ( !this.fullScreen ) _ZapatoTalla(),
+
+            ],
+          ),
+
         ),
-
       ),
     );
   }
@@ -58,7 +66,7 @@ class _ZapatoSombreado extends StatelessWidget {
     final screenSize = MediaQuery.of(context).size;
 
     return Padding(
-      padding: EdgeInsets.all( (screenSize.height * 0.55) * 0.1 ),
+      padding: EdgeInsets.all( (screenSize.height * 0.50) * 0.1 ),
       child: Stack(
         children: [
           Positioned(
@@ -177,7 +185,7 @@ class _CuadroTalla extends StatelessWidget {
 
         child: Center(
           child: Text(
-            ( tallaZapato * 10 % 10 == 0 ) ? tallaZapato.toInt().toString() : tallaZapato.toString(),
+            '$tallaZapato'.replaceAll('.0', ''),
             style: TextStyle(
               color:  tallaZapato == 23.5 ? Colors.white : Color(0xFFEB5352),
               letterSpacing: 2,
