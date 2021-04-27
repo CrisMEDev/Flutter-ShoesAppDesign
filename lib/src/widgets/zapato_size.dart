@@ -14,7 +14,7 @@ class ZapatoSizePreview extends StatelessWidget {
     final screenSize = MediaQuery.of(context).size;
 
     return Padding(
-      padding: EdgeInsets.symmetric( 
+      padding: EdgeInsets.symmetric(
         horizontal: this.fullScreen ? 5.0 : screenSize.width * 0.1,
         vertical: this.fullScreen ? 5.0 : 0.0
       ),

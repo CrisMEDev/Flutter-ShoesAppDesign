@@ -30,7 +30,7 @@ class AgregarCarritoBoton extends StatelessWidget {
             SizedBox( width: 20.0,),
             Text('\$' + monto.toString(), style: TextStyle( fontSize: 28.0, fontWeight: FontWeight.bold ),),
             Spacer(),
-            BotonPedir( text: 'Add to cart', ),
+            BotonPedir( text: 'Add to cart', botonAlto: (screenSize.height * 0.15) * 0.50, botonAncho: screenSize.width * 0.40, ),
             SizedBox( width: 20.0,),
           ],
         ),

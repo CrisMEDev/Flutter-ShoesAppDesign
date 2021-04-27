@@ -3,17 +3,20 @@ import 'package:flutter/material.dart';
 class BotonPedir extends StatelessWidget {
 
   final String text;
+  final double botonAlto, botonAncho;
 
-  BotonPedir({this.text});
+  BotonPedir({
+    this.text,
+    this.botonAlto = 40.0,
+    this.botonAncho = 80.0
+  });
 
   @override
   Widget build(BuildContext context) {
 
-    final screenSize = MediaQuery.of(context).size;
-
     return Container(
-      width: screenSize.width * 0.40,
-      height: (screenSize.height * 0.15) * 0.50,
+      width: this.botonAncho,
+      height: this.botonAlto,
 
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(100.0),
